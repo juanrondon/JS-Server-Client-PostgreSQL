@@ -1,0 +1,10 @@
+{
+  "test": {
+    "PORT": 3090,    
+    "JWT_SECRET": "poijasdf98435jpgfdpoij3"
+  },
+  "development": {
+    "PORT": 3090,    
+    "JWT_SECRET": "pojiaj234oi234oij234oij4"
+  }
+}

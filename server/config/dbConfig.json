@@ -1,0 +1,18 @@
+{
+  "development": {
+    "username": "postgres",
+    "password": "postgres",
+    "database": "server-dev",
+    "host": "127.0.0.1",
+    "port": 5432,
+    "dialect": "postgres"    
+  },
+  "test": {
+    "username": "",
+    "password": "",
+    "database": "server-test",
+    "host": "127.0.0.1",
+    "port": 5432,
+    "dialect": "postgres"
+  }
+}
