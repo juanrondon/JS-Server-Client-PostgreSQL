@@ -1,21 +1,18 @@
 const jwt = require('jwt-simple');
 const models = require('../models/index');
 
-function tokenForUser(user) {
-  const timestamp = new Date().getTime();
-  console.log(">>>>>", user);
-  return jwt.encode({ sub: user.id, iat: timestamp }, process.env.JWT_SECRET);
-}
-
+// POST
 exports.login = (req, res) => {
-  res.send({ token: tokenForUser(req.user) });
+  res.send({ token: models.User.getTokenForUser(req.user) });
 };
 
-exports.register = async (req, res, next) => {
+// POST
+exports.register = async (req, res) => {
   const username = req.body.username;
   const password = req.body.password;
   const email = req.body.email;
 
+  // Validation
   if (!username) {
     return res.status(422).send({ error: 'A username is required.' });
   }
@@ -31,21 +28,15 @@ exports.register = async (req, res, next) => {
       return res.status(422).send({ error: 'That username is already in use.' });
     }
   }
-  catch (e) {
-    return next(error);
+  catch (err) {
+    console.log(err);
   }
-
-  const user = models.User.build({
-    username: username,
-    password: password,
-    email: email
-  });
 
   try {
-    await user.save();
-    res.json({ token: tokenForUser(user) });
+    const token = await models.User.registerUser(username, email, password);
+    res.status(200).send({ token });
   }
-  catch (error) {
-    return next(error);
+  catch (err) {
+    console.log(err);
   }
 };

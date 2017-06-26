@@ -5,13 +5,13 @@ const JwtStrategy = passportJWT.Strategy;
 const LocalStrategy = require('passport-local');
 var models = require('../models/index');
 
-const localLogin = new LocalStrategy(async function (username, password, done) {
+const localLogin = new LocalStrategy(async (username, password, done) => {
 
-  const user = await models.User.findOne({ where: { username } });  
+  const user = await models.User.findOne({ where: { username } });
   if (!user) {
     return done(null, false);
   }
-  try {
+  try {    
     const result = await user.comparePassword(password);
     return done(null, user);
   }

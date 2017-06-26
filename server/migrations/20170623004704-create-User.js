@@ -5,8 +5,10 @@ module.exports = {
 
     return queryInterface.createTable('Users',
       {
-        id: {
+        user_id: {
           type: Sequelize.INTEGER,
+          allowNull: false,
+          field: 'user_id',
           primaryKey: true,
           autoIncrement: true
         },
@@ -30,7 +32,7 @@ module.exports = {
       });
   },
 
-  down: function (queryInterface, Sequelize) {
-    return queryInterface.dropTable('users');
+  down: function (queryInterface) {
+    return queryInterface.dropTable('Users');
   }
 };
